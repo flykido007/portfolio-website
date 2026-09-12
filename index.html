@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rishabh Singh Thakur</title>
+    <meta name="description" content="Helping businesses use AI and cloud to automate work, cut cost, and get to market faster." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Source+Sans+3:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --paper: #f4efe6;
+        --ink: #1c1914;
+        --mute: #5c564c;
+        --line: #cfc6b6;
+        --accent: #b5441a;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+        font-size: 1.125rem;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.18em;
+      }
+      a:hover { color: var(--ink); }
+
+      .wrap {
+        width: min(42rem, calc(100% - 3rem));
+        margin: 0 auto;
+        padding: 5.5rem 0 6rem;
+      }
+
+      header h1 {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 500;
+        font-size: clamp(2.15rem, 5vw, 3rem);
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        margin: 0 0 1.75rem;
+      }
+
+      .door p {
+        margin: 0 0 1rem;
+        max-width: 36rem;
+      }
+      .door p:last-child { margin-bottom: 0; }
+
+      .touch {
+        display: inline-block;
+        margin-top: 1.75rem;
+        font-weight: 500;
+      }
+
+      .river {
+        margin-top: 4.5rem;
+        padding-top: 0.25rem;
+        border-top: 1px solid var(--line);
+      }
+
+      .entry {
+        display: grid;
+        grid-template-columns: 4.5rem 1fr;
+        gap: 1.25rem;
+        padding: 2rem 0;
+        position: relative;
+      }
+      .entry::before {
+        content: "";
+        position: absolute;
+        left: 4.5rem;
+        top: 2.35rem;
+        bottom: 0;
+        width: 1px;
+        background: var(--line);
+      }
+
+      time {
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+        color: var(--mute);
+        padding-top: 0.35rem;
+      }
+
+      .entry h2 {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 550;
+        font-size: 1.35rem;
+        letter-spacing: -0.02em;
+        margin: 0 0 0.4rem;
+      }
+      .entry p {
+        margin: 0;
+        color: var(--mute);
+        max-width: 32rem;
+      }
+
+      @media (max-width: 560px) {
+        .wrap { width: calc(100% - 2rem); padding-top: 3.5rem; }
+        .entry { grid-template-columns: 3.25rem 1fr; gap: 0.85rem; }
+        .entry::before { left: 3.25rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>Rishabh Singh Thakur</h1>
+      </header>
+
+      <section class="door">
+        <p>Helping businesses use AI and cloud to automate work, cut cost, and get to market faster.</p>
+        <p>I ship my own products — RenderMuseAI is live — and I’ve built AI and cloud systems that run at national scale.</p>
+        <p>If you like the work, get in touch.</p>
+        <a class="touch" href="mailto:rishabh.4082@gmail.com">Get in touch</a>
+      </section>
+
+      <section class="river" aria-label="Work">
+        <article class="entry">
+          <time datetime="2025">2025</time>
+          <div>
+            <h2>RenderMuseAI</h2>
+            <p>A text-to-explainer animation platform. Type a concept, get a video you can actually use.</p>
+          </div>
+        </article>
+      </section>
+    </div>
+  </body>
+</html>
