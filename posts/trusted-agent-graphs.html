@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trusted agent graphs — Rishabh Singh Thakur</title>
+    <meta name="description" content="Lock the architecture first, let Claude build the graph, run it to the goal in a sandbox, then you only review and promote." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Source+Sans+3:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --paper: #f4efe6;
+        --ink: #1c1914;
+        --mute: #5c564c;
+        --line: #cfc6b6;
+        --accent: #b5441a;
+        --card: #ebe4d6;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+        font-size: 1.125rem;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.18em;
+      }
+      a:hover { color: var(--ink); }
+
+      .wrap {
+        width: min(44rem, calc(100% - 3rem));
+        margin: 0 auto;
+        padding: 3.5rem 0 6rem;
+      }
+
+      .back {
+        display: inline-block;
+        margin-bottom: 2.5rem;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--mute);
+        text-decoration: none;
+      }
+      .back:hover { color: var(--accent); }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.65rem 0.85rem;
+        margin-bottom: 1rem;
+      }
+      .meta time {
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+        color: var(--mute);
+      }
+      .badge {
+        display: inline-block;
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        color: var(--accent);
+        border: 1px solid #d9b4a4;
+        background: #f0e6dc;
+        border-radius: 999px;
+        padding: 0.2rem 0.7rem;
+      }
+
+      h1 {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 500;
+        font-size: clamp(2rem, 5vw, 2.6rem);
+        letter-spacing: -0.03em;
+        line-height: 1.12;
+        margin: 0 0 2rem;
+      }
+
+      h2 {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 550;
+        font-size: 1.25rem;
+        letter-spacing: -0.02em;
+        margin: 2.25rem 0 0.65rem;
+      }
+
+      p { margin: 0 0 1rem; max-width: 38rem; }
+      p:last-child { margin-bottom: 0; }
+
+      .lede {
+        font-size: 1.2rem;
+        color: var(--mute);
+        max-width: 36rem;
+        margin-bottom: 0.25rem;
+      }
+
+      ul {
+        margin: 0 0 1rem;
+        padding-left: 1.2rem;
+        max-width: 38rem;
+      }
+      li { margin-bottom: 0.45rem; }
+      li::marker { color: var(--accent); }
+
+      .flow {
+        margin: 1.25rem 0 1.75rem;
+        padding: 1.15rem 1.15rem 1.05rem;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 0.45rem;
+        overflow-x: auto;
+      }
+      .flow ol {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        gap: 0.45rem;
+      }
+      .flow li {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+      .flow .step {
+        display: block;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 0.35rem;
+        padding: 0.65rem 0.85rem;
+        font-size: 0.95rem;
+        line-height: 1.35;
+        max-width: 11rem;
+      }
+      .flow .step strong {
+        display: block;
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 550;
+        font-size: 0.95rem;
+        letter-spacing: -0.01em;
+        margin-bottom: 0.15rem;
+      }
+      .flow .arrow {
+        color: var(--accent);
+        font-size: 1.1rem;
+        line-height: 1;
+        flex-shrink: 0;
+      }
+
+      .note {
+        margin-top: 3rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid var(--line);
+        font-size: 0.95rem;
+        color: var(--mute);
+      }
+
+      @media (max-width: 560px) {
+        .wrap { width: calc(100% - 2rem); padding-top: 2.75rem; }
+        .flow .step { max-width: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <a class="back" href="../index.html">← Rishabh Singh Thakur</a>
+
+      <div class="meta">
+        <time datetime="2026-10">2026</time>
+        <span class="badge">Announce / early blueprint · living</span>
+      </div>
+
+      <h1>Trusted agent graphs</h1>
+
+      <p class="lede">Visual agent canvases are everywhere, and long agent runs are everywhere. Separately they fail you: the canvas still needs a human builder, and the long run is a black box you can’t safely promote.</p>
+
+      <h2>The bet</h2>
+      <p>Lock the architecture first, let Claude build the graph, run it to the goal in a sandbox, then you only review and promote.</p>
+
+      <h2>The loop</h2>
+      <div class="flow" role="img" aria-label="Grill features, tools, permissions, and tests; Claude builds the graph; sandbox iterates to the goal; you review; then promote to production.">
+        <ol>
+          <li>
+            <span class="step"><strong>Grill</strong> features · tools · perms · tests</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </li>
+          <li>
+            <span class="step"><strong>Claude</strong> builds the graph</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </li>
+          <li>
+            <span class="step"><strong>Sandbox</strong> iterate to the goal</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </li>
+          <li>
+            <span class="step"><strong>You review</strong></span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </li>
+          <li>
+            <span class="step"><strong>Promote</strong> to prod</span>
+          </li>
+        </ol>
+      </div>
+
+      <h2>What the graph is</h2>
+      <ul>
+        <li>Inspectable flow of CLI / script nodes</li>
+        <li>Permissions set per node by the user</li>
+        <li>Browser, cloud, and apps as nodes that run that CLI</li>
+        <li>Every change must pass tests before it’s trusted</li>
+        <li>A good graph becomes a reusable nested module</li>
+      </ul>
+
+      <h2>What it is not yet</h2>
+      <p>A chat UI that drives this — later. Economics — when we have real numbers.</p>
+
+      <h2>The edge</h2>
+      <p>Not another drag-and-drop canvas. The edge is pre-decided architecture, an AI-authored graph, a sandbox until it’s done, and one human gate to prod.</p>
+
+      <p class="note">Living note — early blueprint. I’ll update this as the loop gets sharper.</p>
+    </div>
+  </body>
+</html>
