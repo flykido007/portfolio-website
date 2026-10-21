@@ -224,46 +224,49 @@
       </ul>
 
       <h2>First proof</h2>
-      <p>A marketing-email drafting workflow, rebuilt as a graph and packaged as a Claude Cowork plugin. A ticket goes in and an unpublished CMS draft comes out.</p>
-      <div class="flow" role="img" aria-label="Ticket; content gate; Claude drafts; you review the preview; HTML check; you approve the upload; unpublished CMS draft.">
+      <p>A ticket-to-PR harness, packaged as a Claude Code plugin. One ticket per chat. Claude plans it, builds it, tests it, and opens the PR. I step in three times: to approve the plan, to merge, and to close.</p>
+      <div class="flow" role="img" aria-label="You start a ticket; Claude plans it on a canvas; you approve the plan; Claude builds in its own worktree; a checker runs the test gate and red loops back to build; a reviewer checks the diff against the plan; you merge the PR.">
         <ol>
           <li>
-            <span class="step"><strong>Ticket</strong> source copy</span>
+            <span class="step"><strong>You start</strong> a ticket</span>
             <span class="arrow" aria-hidden="true">→</span>
           </li>
           <li>
-            <span class="step"><strong>Gate</strong> no real copy, no draft</span>
+            <span class="step"><strong>Plan</strong> steps · test gate · evidence</span>
             <span class="arrow" aria-hidden="true">→</span>
           </li>
           <li>
-            <span class="step"><strong>Claude</strong> drafts the HTML</span>
+            <span class="step"><strong>You approve</strong> the plan</span>
             <span class="arrow" aria-hidden="true">→</span>
           </li>
           <li>
-            <span class="step"><strong>You review</strong> the preview</span>
+            <span class="step"><strong>Build</strong> in its own worktree</span>
             <span class="arrow" aria-hidden="true">→</span>
           </li>
           <li>
-            <span class="step"><strong>Check</strong> HTML</span>
+            <span class="step"><strong>Checker</strong> runs the test gate, red loops back</span>
             <span class="arrow" aria-hidden="true">→</span>
           </li>
           <li>
-            <span class="step"><strong>You approve</strong> the upload</span>
+            <span class="step"><strong>Reviewer</strong> diff vs plan</span>
             <span class="arrow" aria-hidden="true">→</span>
           </li>
           <li>
-            <span class="step"><strong>CMS</strong> draft, unpublished</span>
+            <span class="step"><strong>You merge</strong> the PR</span>
           </li>
         </ol>
       </div>
       <ul>
-        <li>23 nodes and 28 edges, each one inspectable</li>
-        <li>4 pauses: one hands the copy to Claude, three wait for a human</li>
-        <li>The run stops if the ticket has no real copy, so nothing gets made up</li>
-        <li>A Claude skill drives the run through the graph’s own API: start, watch, resume</li>
-        <li>A 9-step live test passed, and a direct CMS check confirmed the draft stayed unpublished</li>
+        <li>Only I can run the three commands: start, sync and end. Claude can’t trigger them itself</li>
+        <li>A guard hook checks every shell command and blocks merging, pushing to main, and force pushes</li>
+        <li>Two subagents start with a fresh context: a checker that only runs the test gate and reports proof, and a reviewer that reads the diff against the plan. Neither one edits files</li>
+        <li>Build and test loop until the gate is green, and the loop stops if the same failure comes up three times</li>
+        <li>Each ticket gets a canvas page rendered from one data file: plan, steps, evidence and PR state</li>
+        <li>A ticket can’t close until every evidence item is proven and the PR is merged</li>
+        <li>So far it has opened 4 ticket PRs, and I’ve merged 2 of them</li>
       </ul>
-      <p>What this proves: a graph you can inspect, with gates, that can be reused as a plugin. What it doesn’t prove yet: Claude didn’t write this graph from a grilled spec, and the run still stops for a human partway through, so there’s no unattended sandbox loop. The retry after a failed HTML check doesn’t go anywhere yet either. Those are next.</p>
+      <p>Before this: a marketing-email drafting workflow built as a graph of 23 nodes and 28 edges. A content gate stops the run when there’s no real copy, and three pauses wait for a human. A 9-step live test passed, ending in an unpublished CMS draft.</p>
+      <p>What this proves: Claude can run the middle of the loop by itself, inside clear limits, with proof checked by an agent that didn’t write the code, and the whole thing installs as a plugin. What it doesn’t prove yet: the plan is a list of steps written for each ticket, not a graph of CLI nodes that Claude builds from a grilled spec. Permissions come from one guard on shell commands, not from settings on each node. The work runs in a git worktree, not an isolated sandbox. And running many tickets in parallel from one chat isn’t verified yet.</p>
 
       <h2>What it is not yet</h2>
       <p>A chat UI that drives this — later. Economics — when we have real numbers.</p>
